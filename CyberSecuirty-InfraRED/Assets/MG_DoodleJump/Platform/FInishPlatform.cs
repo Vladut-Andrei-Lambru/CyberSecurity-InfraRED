@@ -1,15 +1,17 @@
-// FinishPlatform.cs
+// FInishPlatform.cs
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class FinishPlatform : MonoBehaviour
-{
-    void Reset() => GetComponent<Collider>().isTrigger = true;
+/// <summary>
+/// Legacy finish trigger (optional).
+/// In the new security-driven flow, the level ends when Security hits 100%.
 
-    void OnTriggerEnter(Collider other)
+/// </summary>
+[DisallowMultipleComponent]
+public sealed class FInishPlatform : MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
     {
-        if (!GameManager.I) return;
-        if (other.transform == GameManager.I.player)
-            GameManager.I.Win();
+        if (!other.CompareTag("Player")) return;
+        GameManager.Instance?.Win();
     }
 }
