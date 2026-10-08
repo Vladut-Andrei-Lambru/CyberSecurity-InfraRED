@@ -275,8 +275,7 @@ public class DialogueUI : MonoBehaviour
             lineText.gameObject.SetActive(true);
             lineText.text = line.text;
         }
-
-        // 🔥 Camera cue: trigger once at chosen narration line index
+        
         if (enableNarrationCameraCue &&
             !cameraCueFired &&
             narrationCameraSwap != null &&

@@ -12,7 +12,7 @@ public sealed class EnqueueNarrationEventOnTrigger : MonoBehaviour
 
     private void Awake()
     {
-        // Make this object a proper trigger source (CharacterController-safe)
+        
         var col = GetComponent<Collider>();
         col.isTrigger = true;
 
@@ -25,7 +25,6 @@ public sealed class EnqueueNarrationEventOnTrigger : MonoBehaviour
     {
         if (once && fired) return;
 
-        // Works with CharacterController player
         if (!other.CompareTag("Player")) return;
 
         fired = true;

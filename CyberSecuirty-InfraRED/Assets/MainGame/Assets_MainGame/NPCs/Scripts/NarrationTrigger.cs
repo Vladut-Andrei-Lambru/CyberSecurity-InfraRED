@@ -4,8 +4,8 @@ public class NarrationTrigger : MonoBehaviour
 {
     public enum TriggerMode
     {
-        StartOnly,   // good for INTRO (queued before scene loads)
-        ListenEvent  // good for END (queued during gameplay)
+        StartOnly,   
+        ListenEvent  
     }
 
     [Header("Trigger")]
@@ -32,11 +32,9 @@ public class NarrationTrigger : MonoBehaviour
     private void OnEnable()
     {
         enabledAt = Time.unscaledTime;
-
-        // Always safe
+        
         SaveManager.EnsureLoaded();
-
-        // Only subscribe in Listen mode
+        
         if (mode == TriggerMode.ListenEvent)
         {
             SaveManager.OnSaveChanged -= OnSaveChanged;
@@ -51,7 +49,6 @@ public class NarrationTrigger : MonoBehaviour
 
     private void Start()
     {
-        // StartOnly runs once here (intro)
         if (mode == TriggerMode.StartOnly)
             TryTrigger();
     }
@@ -60,12 +57,10 @@ public class NarrationTrigger : MonoBehaviour
     {
         if (mode != TriggerMode.ListenEvent) return;
         if (triggerOnce && triggered) return;
-
-        // optional listen window
+        
         if (listenWindowSeconds > 0f && (Time.unscaledTime - enabledAt) > listenWindowSeconds)
             return;
-
-        // Poll too, because sometimes Save() isn't called when events are queued
+        
         TryTrigger();
     }
 
@@ -81,8 +76,7 @@ public class NarrationTrigger : MonoBehaviour
 
         string key = string.IsNullOrWhiteSpace(triggerEventId) ? "" : triggerEventId.Trim();
         if (string.IsNullOrEmpty(key)) return;
-
-        // Auto-find DialogueUI if not assigned
+        
         if (dialogueUI == null)
             dialogueUI = FindFirstObjectByType<DialogueUI>();
 
@@ -93,8 +87,7 @@ public class NarrationTrigger : MonoBehaviour
             return;
 
         triggered = true;
-
-        // consume so it plays once
+        
         SaveManager.RemoveMainEvent(key);
 
         dialogueUI.OpenNarration(sequence);

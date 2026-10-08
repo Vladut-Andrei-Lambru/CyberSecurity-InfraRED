@@ -76,8 +76,7 @@ public sealed class SaveManager : MonoBehaviour
         if (Instance.data == null)
             Instance.Load();
     }
-
-    // Optional helper if you ever need to force a save from static context
+    
     public static void SaveNow()
     {
         if (Instance == null) return;
@@ -155,8 +154,7 @@ public sealed class SaveManager : MonoBehaviour
             Instance.Save();
         }
     }
-
-    // Backwards-compatible instance methods (some of your older scripts use these)
+    
     public void MarkMinigameComplete(string minigameId) => MarkMinigameCompleted(minigameId);
     public bool IsMinigameComplete(string minigameId) => IsMinigameCompleted(minigameId);
 
@@ -210,8 +208,7 @@ public sealed class SaveManager : MonoBehaviour
         if (key == null) return;
 
         Instance.EnsureData();
-
-        // Prevent duplicates (case-insensitive)
+        
         for (int i = 0; i < Instance.data.mainEventQueue.Count; i++)
         {
             string existing = NormalizeEventId(Instance.data.mainEventQueue[i]);

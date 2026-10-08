@@ -1,6 +1,4 @@
 // SceneLoader.cs
-
-// Uses build index OR scene name. Works everywhere.
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

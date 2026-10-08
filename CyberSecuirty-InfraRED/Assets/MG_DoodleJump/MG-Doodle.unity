@@ -1794,6 +1794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 765134028774622370, guid: e80b0bd320d9713469bbab8b1a40e88d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2950503758439241001, guid: e80b0bd320d9713469bbab8b1a40e88d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2199,7 +2203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1102793045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4619,6 +4623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LosePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1852499178341704536, guid: 45268ef045f8fd24eb09a3fa02249837, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4915913925980066989, guid: 45268ef045f8fd24eb09a3fa02249837, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4770,7 +4778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1711040300657555594, guid: d1fe01a7934918e4c92738e706daf806, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4653267781247812522, guid: d1fe01a7934918e4c92738e706daf806, type: 3}
       propertyPath: m_Pivot.x
@@ -4880,27 +4888,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4573728125914293, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4573728125914293, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4573728125914293, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 76633283044671428, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 76633283044671428, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 76633283044671428, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 684676989221369813, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_Pivot.x
@@ -4986,25 +4994,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soundpane Variant 1
       objectReference: {fileID: 0}
-    - target: {fileID: 951655583343571064, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 905577269145948595, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 951655583343571064, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 951655583343571064, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1060219119849042266, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1060219119849042266, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1060219119849042266, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1118083766659377048, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5020,11 +5032,11 @@ PrefabInstance:
       objectReference: {fileID: 501356427}
     - target: {fileID: 3248116627718398905, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3248116627718398905, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6382652747648607059, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5032,11 +5044,11 @@ PrefabInstance:
       objectReference: {fileID: 501356427}
     - target: {fileID: 9004435648510396629, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9004435648510396629, guid: 2ff289358409b604bbe2d9ef113337ec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

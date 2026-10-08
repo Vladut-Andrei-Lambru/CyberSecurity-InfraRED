@@ -6,7 +6,7 @@ public sealed class PieceView : MonoBehaviour
 {
     public Vector2Int[] Shape { get; private set; }
     public Material PieceMaterial { get; private set; }
-    public bool[] ClueMask { get; private set; } // if you use preview clues
+    public bool[] ClueMask { get; private set; } 
 
     [Header("X-Ray Overlap Feedback")]
     [Range(0f, 1f)] public float validAlpha = 0.50f;
@@ -45,8 +45,8 @@ public sealed class PieceView : MonoBehaviour
         this.spawnWorld = spawnWorld;
 
         mpb = new MaterialPropertyBlock();
-        baseColorId = Shader.PropertyToID("_BaseColor"); // URP
-        colorId = Shader.PropertyToID("_Color");         // built-in
+        baseColorId = Shader.PropertyToID("_BaseColor"); 
+        colorId = Shader.PropertyToID("_Color");        
 
         transform.position = spawnWorld;
         BuildVisual(blockPrefab);
@@ -185,7 +185,7 @@ public sealed class PieceView : MonoBehaviour
 
             var mat = r.sharedMaterial;
 
-            // Get base color from material if possible
+         
             Color baseC = Color.white;
             if (mat)
             {

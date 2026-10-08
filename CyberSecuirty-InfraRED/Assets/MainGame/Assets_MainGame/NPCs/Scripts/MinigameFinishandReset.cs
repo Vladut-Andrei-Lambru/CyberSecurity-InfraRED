@@ -31,11 +31,11 @@ public sealed class MinigameFinishAndReset : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(endNarrationEventId))
             SaveManager.EnqueueMainEvent(endNarrationEventId);
 
-        
+   
         int thisScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(thisScene, LoadSceneMode.Single);
 
-        // Now go to main (cutscene optional)
+      
         if (cutscene != null && CutsceneSystem.Instance != null)
             CutsceneSystem.Instance.PlayAndLoadScene(cutscene, mainSceneBuildIndex);
         else

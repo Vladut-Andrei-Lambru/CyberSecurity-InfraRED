@@ -35,8 +35,7 @@ public static class SolvableHandGenerator
         for (int attempt = 0; attempt < MaxAttempts; attempt++)
         {
             var cand = new HandPiece[3];
-
-            // Block Blast feel: ensure at least one "small helper" piece
+            
             int smallSlot = rng.Next(0, 3);
 
             for (int i = 0; i < 3; i++)
@@ -57,13 +56,10 @@ public static class SolvableHandGenerator
 
         return false;
     }
-
-    // Small helpers: 1x1, 1x2 (both), 1x3 (both), 3-block L
-    // These MUST exist in your BlockBlastShapeLibrary to match shapes.
+    
     static Vector2Int[] GetSmallHelper(System.Random rng)
     {
-        // Explicitly list the helper shapes in normalized forms.
-        // (These match the shapes we included in the "no rotate" library.)
+       
         Vector2Int[][] helpers =
         {
             new []{ new Vector2Int(0,0) }, // 1x1

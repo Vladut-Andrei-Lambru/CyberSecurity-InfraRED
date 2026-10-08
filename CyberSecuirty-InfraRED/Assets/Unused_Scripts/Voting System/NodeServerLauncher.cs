@@ -6,7 +6,7 @@ public class NodeServerLauncher : MonoBehaviour
 {
     [Header("Node Server")]
     [SerializeField] private string nodeExe = "node";
-    [SerializeField] private string serverJsPath = @"C:\YourFolder\server.js";
+    [SerializeField] private string serverJsPath = @"D:\local-vote\server.js";
     [SerializeField] private bool startOnPlay = true;
     [SerializeField] private bool killOnQuit = true;
 

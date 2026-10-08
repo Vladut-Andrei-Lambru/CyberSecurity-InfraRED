@@ -4,16 +4,14 @@ using UnityEngine.Playables;
 public class NarrationEventReceiver : MonoBehaviour
 {
     [Header("Optional: Timeline for camera moments")]
-    public PlayableDirector director;  // assign if using Timeline
+    public PlayableDirector director;  
 
     [Header("Optional: Animator for camera animations")]
-    public Animator cameraAnimator;    // assign if using Animator
+    public Animator cameraAnimator;   
 
     // Called by DialogueUI when a narration line has triggerTimeline=true
     public void OnMarker(string marker)
     {
-        
-        
         switch (marker)
         {
             case "CAM_SHAKE":

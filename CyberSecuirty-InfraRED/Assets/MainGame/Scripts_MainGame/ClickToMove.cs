@@ -47,8 +47,7 @@ public class ClickToMove : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
-
-        // smoother feel
+        
         agent.acceleration = 25f;
         agent.angularSpeed = 720f;
         agent.autoBraking = true;

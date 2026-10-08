@@ -3,26 +3,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.EventSystems;
 
 [DisallowMultipleComponent]
 public sealed class CutsceneSystem : MonoBehaviour
 {
     public static CutsceneSystem Instance { get; private set; }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetStatics() => Instance = null;
-
     [Header("UI")]
-    [SerializeField] private CanvasGroup videoGroup;
-    [SerializeField] private RawImage videoImage;
-    [SerializeField] private Image fadeImage;
+    [SerializeField] private CanvasGroup videoGroup;   // container for your RawImage + optional skip button
+    [SerializeField] private RawImage videoImage;      // displays the cutscene RenderTexture (recommended)
+    [SerializeField] private Image fadeImage;          // full-screen black image (alpha fade)
 
     [Header("Video")]
-    [SerializeField] private VideoPlayer videoPlayer;
-    [SerializeField] private AudioSource videoAudioSource;
+    [SerializeField] private VideoPlayer videoPlayer;  // set Render Mode = Render Texture (recommended)
+    [SerializeField] private AudioSource videoAudioSource; // optional, if you route video audio here
 
     [Header("Music (optional)")]
-    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource musicSource;  // music to pause during cutscene
+
+    [Header("UI Click Lock")]
+    [Tooltip("If assigned, this EventSystem will be disabled during cutscene to prevent UI clicks.")]
+    [SerializeField] private EventSystem eventSystem;
 
     [Header("Fade")]
     [SerializeField, Min(0f)] private float fadeOutSeconds = 0.35f;
@@ -32,15 +34,13 @@ public sealed class CutsceneSystem : MonoBehaviour
 
     private void Awake()
     {
+        
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-
-        // CRITICAL: Do NOT persist this object if it's on a minigame manager root.
-        // If you need a persistent cutscene system, place it on a dedicated bootstrap object in Main Menu scene.
 
         if (videoGroup != null) videoGroup.alpha = 0f;
         SetFadeAlpha(0f);
@@ -57,10 +57,15 @@ public sealed class CutsceneSystem : MonoBehaviour
         if (Instance == this) Instance = null;
     }
 
+    /// <summary>
+    /// Plays a cutscene, then loads the target scene (Single).
+    /// Disables UI clicks during playback by disabling EventSystem.
+    /// </summary>
     public void PlayAndLoadScene(VideoClip clip, int sceneBuildIndex)
     {
         if (isPlaying) return;
 
+        // No clip -> just load
         if (clip == null)
         {
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
@@ -74,22 +79,35 @@ public sealed class CutsceneSystem : MonoBehaviour
     {
         isPlaying = true;
 
+        // Disable UI clicks
+        SetUIClicksEnabled(false);
+
+        // Pause ONLY music
         if (musicSource != null && musicSource.isPlaying)
             musicSource.Pause();
 
+        // Fade to black
         yield return FadeTo(1f, fadeOutSeconds);
 
+        // Show video UI
         if (videoGroup != null) videoGroup.alpha = 1f;
 
+        // Configure video
         if (videoPlayer != null)
         {
             videoPlayer.clip = clip;
 
+            
             if (videoAudioSource != null)
             {
                 videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
                 videoPlayer.SetTargetAudioSource(0, videoAudioSource);
             }
+
+            // If using RenderTexture mode, RawImage should already have the same RenderTexture assigned.
+            // Still, if targetTexture exists, enforce it to avoid "white" output.
+            if (videoImage != null && videoPlayer.targetTexture != null)
+                videoImage.texture = videoPlayer.targetTexture;
 
             videoPlayer.Prepare();
             while (videoPlayer != null && !videoPlayer.isPrepared)
@@ -98,29 +116,49 @@ public sealed class CutsceneSystem : MonoBehaviour
             videoPlayer.Play();
         }
 
+        // Fade from black to video
         yield return FadeTo(0f, fadeInSeconds);
 
+        // Wait for end
         while (videoPlayer != null && videoPlayer.isPlaying)
             yield return null;
 
+        // Fade out before scene load
         yield return FadeTo(1f, fadeOutSeconds);
 
+        // Hide video UI
         if (videoGroup != null) videoGroup.alpha = 0f;
-        if (videoImage != null) videoImage.texture = null;
 
+        // Load next scene cleanly
         yield return SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
 
+        // Fade back in
         yield return FadeTo(0f, fadeInSeconds);
 
+        // Resume music
         if (musicSource != null)
             musicSource.UnPause();
+
+        // Re-enable UI clicks
+        SetUIClicksEnabled(true);
 
         isPlaying = false;
     }
 
+    private void SetUIClicksEnabled(bool enabled)
+    {
+        // Prefer assigned EventSystem, fallback to current.
+        if (eventSystem == null)
+            eventSystem = EventSystem.current != null ? EventSystem.current : FindFirstObjectByType<EventSystem>();
+
+        if (eventSystem != null)
+            eventSystem.enabled = enabled;
+    }
+
     private IEnumerator FadeTo(float targetA, float seconds)
     {
-        if (fadeImage == null) yield break;
+        if (fadeImage == null)
+            yield break;
 
         seconds = Mathf.Max(0.01f, seconds);
         float startA = fadeImage.color.a;
